@@ -1,5 +1,26 @@
 .nav {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.left__nav--mobile {
+  display: none;
+}
+
+@media (max-width: 425px) {
+  .left__nav {
+    display: none;
+  }
+  .left__nav--mobile {
+    display: inline;
+  }
+  .left__nav--mobile > ul {
+    display: none;
+  }
+
+  .hamburger__icon::after > li {
+    display: inline;
+  }
 }

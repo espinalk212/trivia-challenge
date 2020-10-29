@@ -10,8 +10,15 @@ function Header() {
   /* on mobile collapse left nav into hamburger menu, on larger devices do not show hamburger icon*/
   return (
     <div className="nav">
+      <div className="left__nav--mobile">
+        <MenuIcon fontSize="large" className="hamburger__icon" />
+          <ul>
+            <li>github</li>
+            <li>linkedIn</li>
+            <li>personal site</li>
+          </ul>
+      </div>
       <div className="left__nav">
-        <MenuIcon fontSize="large" />
         <a
           href="https://github.com/espinalk212"
           target="_blank"
@@ -35,7 +42,7 @@ function Header() {
         </a>
       </div>
       <div>
-        <p>Trivia Challenge</p>
+        <h1>Trivia Challenge</h1>
       </div>
       <div className="right__nav">
         <InfoIcon fontSize="large" />

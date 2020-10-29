@@ -3,11 +3,13 @@ import "./Question.css";
 
 function Question({ currentQuestion, currentQuestionNumber, totalQuestions }) {
   return (
-    <div className="Question">
-      <h2>{currentQuestion}</h2>
-      <h6>
-        Question {currentQuestionNumber} out of {totalQuestions}
-      </h6>
+    <div className="question__container">
+      <div>
+        <h2 className="question">{currentQuestion}</h2>
+        <h6>
+          Question {currentQuestionNumber} out of {totalQuestions}
+        </h6>
+      </div>
     </div>
   );
 }

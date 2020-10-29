@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import "./Options.css";
 
 function Options({
   currentAnswerOptions,
@@ -7,7 +7,7 @@ function Options({
   handleAnswerSelected,
   currentAnswer,
 }) {
-  const label = currentAnswerOptions.map(answerChoice => {
+  const label = currentAnswerOptions.map((answerChoice) => {
     return (
       <label>
         <input
@@ -23,16 +23,14 @@ function Options({
     );
   });
   return (
-    <form className="form">
-      {label}
-      <Button
-        className="submit__button"
-        variant="contained"
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
-    </form>
+    <div className="form__container">
+      <form className="form">
+        {label}
+        <button className="submit__button" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

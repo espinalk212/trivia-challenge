@@ -1,4 +1,33 @@
 .form__container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  margin-right: 25vw;
+  margin-left: 25vw;
+  margin-bottom: 60px;
+  border-bottom: 3px solid black;
+  border-right: 3px solid black;
+  border-left: 3px solid black;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 20px;
+  background-image: none;
+  background-color: white;
+}
+
+form {
+  
+}
+
+
+.submit__button {
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.options__button {
+  display: flex;
+  cursor: pointer;
 }
