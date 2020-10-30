@@ -9,7 +9,8 @@ function Options({
 }) {
   const label = currentAnswerOptions.map((answerChoice) => {
     return (
-      <label>
+      <label className="customRadioButton__container">
+        {answerChoice}
         <input
           className="options__button"
           type="radio"
@@ -17,8 +18,8 @@ function Options({
           value={answerChoice}
           checked={false}
           onChange={handleAnswerSelected}
-        />{" "}
-        {answerChoice}
+        />
+        <span className="customRadioButton"></span>
       </label>
     );
   });
