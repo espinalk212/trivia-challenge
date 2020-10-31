@@ -16,7 +16,7 @@ function Options({
           type="radio"
           name={answerChoice}
           value={answerChoice}
-          checked={false}
+          // checked={}
           onChange={handleAnswerSelected}
         />
         <span className="customRadioButton"></span>

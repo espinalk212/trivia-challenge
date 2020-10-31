@@ -23,22 +23,22 @@ class App extends Component {
       result: "",
     };
 
-    this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
-  }
+  //   this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+ }
 
   componentDidMount() {
     const shuffledAnswerOptions = data.map((question) =>
-      this.shuffleArray(question.incorrect.concat(question.correct))
+      this.shuffledArray(question.incorrect.concat(question.correct))
     );
 
     this.setState({
       currentQuestion: data[0].question,
       currentAnswerOptions: shuffledAnswerOptions[0],
-      answer: data[0].correct
+      answer: data[0].correct,
     });
   }
 
-  shuffleArray(array) {
+  shuffledArray(array) {
     let currentIndex = array.length,
       temporaryValue,
       randomIndex;
@@ -59,25 +59,64 @@ class App extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.questionId < data.length) {
+      setTimeout(() => this.setNextQuestion(), 300);
+    } else {
+      setTimeout(() => this.setResults(this.getResults()), 300);
+    }
   }
 
-  handleAnswerSelected(e) {
-    /* once user picks an answer: 
-    we should set it as the answer,
-    check to see if there are any questions left ? get the next question : get results */
-    // this.setAnswer(e.currentTarget.value);
-    // if (this.state.questionId < data.length) {
-    //   setTimeout(() => this.setNextQuestion(), 300);
-    // } else {
-    //   setTimeout(() => this.setResults(this.getResults()), 300);
-    // }
-  }
+  // handleAnswerSelected(e) {
+  //   /* once user picks an answer:
+  //   we should set it as the answer,
+  //   check to see if there are any questions left ? get the next question : get results */
+  //   this.setAnswer(e.currentTarget.value);
+  //   if (this.state.questionId < data.length) {
+  //     setTimeout(() => this.setNextQuestion(), 300);
+  //   } else {
+  //     setTimeout(() => this.setResults(this.getResults()), 300);
+  //   }
+  // }
 
   setAnswer(answer) {
-    this.setState({
-      
-    })
+    this.setState((state) => ({
+      answersCount: {
+        ...state.answersCount,
+        [answer]: (state.answersCount[answer] || 0) + 1,
+      },
+      answer: answer,
+    }));
+  }
 
+  setNextQuestion() {
+    const counter = this.state.counter + 1;
+    const questionId = this.state.questionId + 1;
+    this.setState((state) => ({
+      counter: counter,
+      questionId: questionId,
+      question: this.state.currentQuestion[counter].question,
+      answerOptions: this.state.currentQuestion[counter].answers,
+      answer: "",
+    }));
+  }
+
+  getResults() {
+    const answersCount = this.state.answersCount;
+    const answersCountKeys = Object.keys(answersCount);
+    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
+    const maxAnswerCount = Math.max.apply(null, answersCountValues);
+
+    return answersCountKeys.filter(
+      (key) => answersCount[key] === maxAnswerCount
+    );
+  }
+
+  setResults(result) {
+    if (result.length === 1) {
+      this.setState({ result: result[0] });
+    } else {
+      this.setState({ result: "Undetermined" });
+    }
   }
 
   render() {
@@ -89,10 +128,11 @@ class App extends Component {
           currentQuestion={this.state.currentQuestion}
           totalQuestions={data.length}
         />
-        <Options currentAnswerOptions={this.state.currentAnswerOptions}
-        handleSubmit={this.handleSubmit} 
-        handleAnswerSelected={this.handleAnswerSelected}
-        currentAnswer={this.state.answer}
+        <Options
+          currentAnswerOptions={this.state.currentAnswerOptions}
+          handleSubmit={this.handleSubmit}
+          handleAnswerSelected={this.handleAnswerSelected}
+          currentAnswer={this.state.answer}
         />
         <Footer />
       </div>
@@ -101,7 +141,7 @@ class App extends Component {
     //     return (
     //       <div className="app">
     //         <Header />
-    //         < Result totalQuestions={data.length} />
+    //         < Result result={this.state.result} totalQuestions={data.length} />
     //         <Footer />
     //       </div>
     //     );
