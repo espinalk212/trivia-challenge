@@ -7,9 +7,9 @@ function Options({
   handleAnswerSelected,
   currentAnswer,
 }) {
-  const label = currentAnswerOptions.map((answerChoice) => {
+  const label = currentAnswerOptions.map((answerChoice, idx) => {
     return (
-      <label className="customRadioButton__container">
+      <label className="customRadioButton__container" key={idx}>
         {answerChoice}
         <input
           className="options__button"

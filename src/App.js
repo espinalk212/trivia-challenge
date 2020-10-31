@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Header from "./Header";
+import Welcome from './Welcome';
 import Question from "./Question";
 import Result from "./Result";
 import Options from "./Options";
@@ -18,51 +19,63 @@ class App extends Component {
       currentQuestionId: 1,
       currentQuestion: " ",
       currentAnswerOptions: [],
+      correctAnswer: "",
       answer: "",
-      answersCount: {},
-      result: "",
+      // answersCount: {},
+      result: 0,
+      currentShuffledQuestions: [],
+      triviaStarted: false,
     };
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.startTrivia = this.startTrivia.bind(this);
   }
 
   componentDidMount() {
-    const shuffledAnswerOptions = data.map((question) =>
-      this.shuffledArray(question.incorrect.concat(question.correct))
-    );
+    // const shuffledAnswerOptions = data.map((question) =>
+    //   this.shuffledArray(question.incorrect.concat(question.correct))
+    // );
+    /* data: [{question: , correct: , incorrect: }, {question: , correct: , incorrect: }]*/
+    const shuffledQuestions = this.shuffledArray(data, 10);
+
     this.setState({
-      currentQuestion: data[0].question,
-      currentAnswerOptions: shuffledAnswerOptions[0],
-      answer: data[0].correct,
+      currentQuestion: shuffledQuestions[0].question,
+      currentAnswerOptions: shuffledQuestions[0].incorrect.concat(
+        shuffledQuestions[0].correct
+      ),
+      correctAnswer: shuffledQuestions[0].correct,
+      currentShuffledQuestions: shuffledQuestions,
     });
   }
 
-  shuffledArray(array) {
-    let currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+  shuffledArray(array, length = array.length) {
+    let newArray = [];
+    while (newArray.length < length) {
+      let randomIndex = Math.floor(Math.random() * array.length);
+      let newValue = array[randomIndex];
+      if (!newArray.includes(newValue)) {
+        newArray.push(newValue);
+      }
     }
-
-    return array;
+    return newArray;
   }
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.currentQuestionId < data.length) {
+    if (
+      this.state.currentQuestionId < 10 &&
+      this.state.answer === this.state.correctAnswer
+    ) {
+      let newRes = this.state.result;
+      this.setState({ result: (newRes += 1) });
+      setTimeout(() => this.setNextQuestion(), 300);
+    } else if (
+      this.state.currentQuestionId < 10 &&
+      this.state.answer !== this.state.correctAnswer
+    ) {
       setTimeout(() => this.setNextQuestion(), 300);
     } else {
-      setTimeout(() => this.setResults(this.getResults()), 300);
+      setTimeout(() => console.log(`you scored ${this.state.result}`), 300);
     }
   }
 
@@ -72,58 +85,40 @@ class App extends Component {
     this.setAnswer(e.currentTarget.value);
   }
 
+  startTrivia() {
+    this.setState({ triviaStarted: true })
+  }
+
   setAnswer(answer) {
-    this.setState((state) => ({
-      answersCount: {
-        ...state.answersCount,
-        [answer]: (state.answersCount[answer] || 0) + 1,
-      },
+    this.setState({
       answer: answer,
-    }));
+    });
   }
 
   setNextQuestion() {
     const counter = this.state.counter + 1;
     const currentQuestionId = this.state.currentQuestionId + 1;
-    this.setState((state) => ({
+    this.setState({
+      correctAnswer: this.state.currentShuffledQuestions[counter].correct,
       counter: counter,
       currentQuestionId: currentQuestionId,
-      currentQuestion: data[counter].question,
-      currentAnswerOptions: data[counter].incorrect.concat(
-        data[counter].correct
-      ),
+      currentQuestion: this.state.currentShuffledQuestions[counter].question,
+      currentAnswerOptions: this.state.currentShuffledQuestions[
+        counter
+      ].incorrect.concat(this.state.currentShuffledQuestions[counter].correct),
       answer: "",
-    }));
-  }
-
-  getResults() {
-    const answersCount = this.state.answersCount;
-    const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
-    const maxAnswerCount = Math.max.apply(null, answersCountValues);
-
-    return answersCountKeys.filter(
-      (key) => answersCount[key] === maxAnswerCount
-    );
-  }
-
-  setResults(result) {
-    if (result.length === 1) {
-      this.setState({ result: result[0] });
-    } else {
-      this.setState({ result: "Undetermined" });
-    }
+    });
   }
 
   render() {
-    if (this.state.currentQuestionId > data.length) {
+    if (this.state.triviaStarted === true) {
       return (
         <div className="app">
           <Header />
           <Question
             currentQuestionNumber={this.state.currentQuestionId}
             currentQuestion={this.state.currentQuestion}
-            totalQuestions={data.length}
+            totalQuestions={10}
           />
           <Options
             currentAnswerOptions={this.state.currentAnswerOptions}
@@ -131,16 +126,24 @@ class App extends Component {
             handleAnswerSelected={this.handleAnswerSelected}
             currentAnswer={this.state.answer}
           />
+          <Result
+            result={this.state.result}
+            currentQuestionId={this.state.currentQuestionId}
+          />
           <Footer />
         </div>
       );
     } else {
       return (
-        <div className="app">
-          <Header />
-          <Result result={this.state.result} totalQuestions={data.length} />
-          <Footer />
-        </div>
+      <div className="app">
+        <Header />
+        <Welcome startTrivia={this.startTrivia} />
+        <Result
+          result={this.state.result}
+          currentQuestionId={this.state.currentQuestionId}
+        />
+        <Footer />
+      </div>
       );
     }
   }

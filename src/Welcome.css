@@ -1,0 +1,23 @@
+.welcomeCard__container {
+  display: flex;
+  margin-right: 20vw;
+  margin-left: 20vw;
+  margin-top: 60px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 3px solid black;
+  /* border-left: 3px solid black;
+  border-right: 3px solid black; */
+  border-radius: 5px;
+  /* border-top-right-radius: 5px; */
+  padding: 25px;
+  background-image: none;
+  background-color: white;
+}
+
+.welcomeCard > * {
+  display: flex;
+  padding: 25px;
+  justify-content: center;
+}

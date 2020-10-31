@@ -3,7 +3,6 @@ import "./Header.css";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import InfoIcon from "@material-ui/icons/Info";
 import MenuIcon from "@material-ui/icons/Menu";
 
 function Header() {
@@ -12,11 +11,11 @@ function Header() {
     <div className="nav">
       <div className="left__nav--mobile">
         <MenuIcon fontSize="large" className="hamburger__icon" />
-          <ul>
-            <li>github</li>
-            <li>linkedIn</li>
-            <li>personal site</li>
-          </ul>
+        <ul>
+          <li>github</li>
+          <li>linkedIn</li>
+          <li>personal site</li>
+        </ul>
       </div>
       <div className="left__nav">
         <a
@@ -43,9 +42,6 @@ function Header() {
       </div>
       <div>
         <h1>Trivia Challenge</h1>
-      </div>
-      <div className="right__nav">
-        <InfoIcon fontSize="large" />
       </div>
     </div>
   );
