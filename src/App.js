@@ -23,14 +23,14 @@ class App extends Component {
       result: "",
     };
 
-  //   this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
- }
+    this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   componentDidMount() {
     const shuffledAnswerOptions = data.map((question) =>
       this.shuffledArray(question.incorrect.concat(question.correct))
     );
-
     this.setState({
       currentQuestion: data[0].question,
       currentAnswerOptions: shuffledAnswerOptions[0],
@@ -59,24 +59,18 @@ class App extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.questionId < data.length) {
+    if (this.state.currentQuestionId < data.length) {
       setTimeout(() => this.setNextQuestion(), 300);
     } else {
       setTimeout(() => this.setResults(this.getResults()), 300);
     }
   }
 
-  // handleAnswerSelected(e) {
-  //   /* once user picks an answer:
-  //   we should set it as the answer,
-  //   check to see if there are any questions left ? get the next question : get results */
-  //   this.setAnswer(e.currentTarget.value);
-  //   if (this.state.questionId < data.length) {
-  //     setTimeout(() => this.setNextQuestion(), 300);
-  //   } else {
-  //     setTimeout(() => this.setResults(this.getResults()), 300);
-  //   }
-  // }
+  handleAnswerSelected(e) {
+    /* once user picks an answer:
+    we should set it as the answer */
+    this.setAnswer(e.currentTarget.value);
+  }
 
   setAnswer(answer) {
     this.setState((state) => ({
@@ -90,12 +84,14 @@ class App extends Component {
 
   setNextQuestion() {
     const counter = this.state.counter + 1;
-    const questionId = this.state.questionId + 1;
+    const currentQuestionId = this.state.currentQuestionId + 1;
     this.setState((state) => ({
       counter: counter,
-      questionId: questionId,
-      question: this.state.currentQuestion[counter].question,
-      answerOptions: this.state.currentQuestion[counter].answers,
+      currentQuestionId: currentQuestionId,
+      currentQuestion: data[counter].question,
+      currentAnswerOptions: data[counter].incorrect.concat(
+        data[counter].correct
+      ),
       answer: "",
     }));
   }
@@ -120,32 +116,33 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="app">
-        <Header />
-        <Question
-          currentQuestionNumber={this.state.currentQuestionId}
-          currentQuestion={this.state.currentQuestion}
-          totalQuestions={data.length}
-        />
-        <Options
-          currentAnswerOptions={this.state.currentAnswerOptions}
-          handleSubmit={this.handleSubmit}
-          handleAnswerSelected={this.handleAnswerSelected}
-          currentAnswer={this.state.answer}
-        />
-        <Footer />
-      </div>
-    );
-    //   } : {
-    //     return (
-    //       <div className="app">
-    //         <Header />
-    //         < Result result={this.state.result} totalQuestions={data.length} />
-    //         <Footer />
-    //       </div>
-    //     );
-    //   }
+    if (this.state.currentQuestionId > data.length) {
+      return (
+        <div className="app">
+          <Header />
+          <Question
+            currentQuestionNumber={this.state.currentQuestionId}
+            currentQuestion={this.state.currentQuestion}
+            totalQuestions={data.length}
+          />
+          <Options
+            currentAnswerOptions={this.state.currentAnswerOptions}
+            handleSubmit={this.handleSubmit}
+            handleAnswerSelected={this.handleAnswerSelected}
+            currentAnswer={this.state.answer}
+          />
+          <Footer />
+        </div>
+      );
+    } else {
+      return (
+        <div className="app">
+          <Header />
+          <Result result={this.state.result} totalQuestions={data.length} />
+          <Footer />
+        </div>
+      );
+    }
   }
 }
 

@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 function Result({ result  }) {
   return (
     <div>
-      You scored {result}
+      <h1>You scored {result}</h1>
     </div>
   )
 }
