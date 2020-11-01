@@ -1,6 +1,7 @@
 .footer__container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   border-top: 1px solid black;
-  margin-top: 10vw;
+  margin-top: 11vw;
 }
+
