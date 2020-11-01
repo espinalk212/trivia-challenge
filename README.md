@@ -1,7 +1,7 @@
-# [Trivia-Challenge](https://espinalk212.github.io/trivia-challenge/)
+# [Trivia Challenge](https://espinalk212.github.io/trivia-challenge/)
 
 ### Background and Overview 
-This is a fun little trivia web app created with React and Material-UI icons, the data was shared by [Tandem](https://madeintandem.com/) for their software engineer apprenticeship coding challenge.
+This is a fun little trivia web app created with React and Material-UI icons, the data was shared by [Tandem](https://madeintandem.com/) for the Software Engineer Apprenticeship Coding Challenge.
 
 Wallpaper from [FreeVector.com](https://www.freevector.com/pastel-background-30546)
 
