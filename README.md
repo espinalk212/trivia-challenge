@@ -8,12 +8,12 @@
 ### Functionality and MVPs
 
 
-
+### Challenges and things I learned
 
 
 ### Visual
 
-![image](https://i.imgur.com/WfuZ5lP.png)
+![image]()
 
 ### Architecture and Technology
 
@@ -87,4 +87,5 @@ return (
 ### (Bonus Features)
 
 - Refactor to make mobile friendly
+- Implement Jest for user end testing
 
