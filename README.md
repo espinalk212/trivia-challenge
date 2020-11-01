@@ -123,7 +123,7 @@ return (
     </div>
   );
 ```
-### Code Snippet
+### How To Run This Project On Your Own Server
 Clone repo and run from terminal:
 ```Javascript
 npm install
@@ -135,7 +135,7 @@ npm start
 (this will start the scripts) direct browser to localhost:3000
 
 
-### (Bonus Features)
+### Future Changes(Bonus Features)
 
 - Refactor to make mobile friendly
 - Implement Jest for user end testing
