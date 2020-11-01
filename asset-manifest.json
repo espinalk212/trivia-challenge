@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/trivia-challenge/static/css/main.639581e9.chunk.css",
+    "main.js": "/trivia-challenge/static/js/main.1bb94131.chunk.js",
+    "main.js.map": "/trivia-challenge/static/js/main.1bb94131.chunk.js.map",
+    "runtime-main.js": "/trivia-challenge/static/js/runtime-main.e7ef618e.js",
+    "runtime-main.js.map": "/trivia-challenge/static/js/runtime-main.e7ef618e.js.map",
+    "static/js/2.7749b1d0.chunk.js": "/trivia-challenge/static/js/2.7749b1d0.chunk.js",
+    "static/js/2.7749b1d0.chunk.js.map": "/trivia-challenge/static/js/2.7749b1d0.chunk.js.map",
+    "static/js/3.ca8a8e6e.chunk.js": "/trivia-challenge/static/js/3.ca8a8e6e.chunk.js",
+    "static/js/3.ca8a8e6e.chunk.js.map": "/trivia-challenge/static/js/3.ca8a8e6e.chunk.js.map",
+    "index.html": "/trivia-challenge/index.html",
+    "static/css/main.639581e9.chunk.css.map": "/trivia-challenge/static/css/main.639581e9.chunk.css.map",
+    "static/js/2.7749b1d0.chunk.js.LICENSE.txt": "/trivia-challenge/static/js/2.7749b1d0.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/trivia-challenge/static/media/background_img.3489efb5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e7ef618e.js",
+    "static/js/2.7749b1d0.chunk.js",
+    "static/css/main.639581e9.chunk.css",
+    "static/js/main.1bb94131.chunk.js"
+  ]
+}
