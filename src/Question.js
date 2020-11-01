@@ -1,7 +1,7 @@
 import React from "react";
 import "./Question.css";
 
-function Question({ currentQuestion, currentQuestionNumber, totalQuestions }) {
+function Question({ currentQuestion, currentQuestionNumber, totalQuestions, result }) {
   return (
     <div className="question__container">
       <div>
@@ -9,6 +9,7 @@ function Question({ currentQuestion, currentQuestionNumber, totalQuestions }) {
         <h6>
           Question {currentQuestionNumber} out of {totalQuestions}
         </h6>
+        <h4>Your score: {result}</h4>
       </div>
     </div>
   );

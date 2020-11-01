@@ -2,6 +2,8 @@ import React from "react";
 import "./Options.css";
 
 function Options({
+  displayCorrectAnswer,
+  correctAnswer,
   currentAnswerOptions,
   handleSubmit,
   handleAnswerSelected,
@@ -12,7 +14,7 @@ function Options({
       <label className="customRadioButton__container" key={idx}>
         {answerChoice}
         <input
-          className="options__button"
+          className="optionsButton"
           type="radio"
           name={answerChoice}
           value={answerChoice}
@@ -27,10 +29,19 @@ function Options({
     <div className="form__container">
       <form className="form">
         {label}
-        <button className="submit__button" onClick={handleSubmit}>
-          Submit
-        </button>
+        {displayCorrectAnswer ? (
+          <p className="showAnswer">
+            {correctAnswer === currentAnswer
+              ? `Yay! You got the correct answer: ${correctAnswer}`
+              : `Oops! The correct answer: ${correctAnswer}`}
+          </p>
+        ) : (
+          " "
+        )}
       </form>
+      <button className="submitButton" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 }

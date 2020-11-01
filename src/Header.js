@@ -43,6 +43,8 @@ function Header() {
       <div>
         <h1>Trivia Challenge</h1>
       </div>
+      <div>
+      </div>
     </div>
   );
 }

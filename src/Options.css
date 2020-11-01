@@ -1,5 +1,4 @@
 .form__container {
-  display: flex;
   justify-content: space-around;
   margin-right: 20vw;
   margin-left: 20vw;
@@ -12,22 +11,30 @@
   padding: 20px;
   background-image: none;
   background-color: white;
+  min-height: 20vw;
+  min-width: 20vw;
+}
+
+.form {
+  min-height: 15vw;
+  min-width: 25vw;
+  margin-left: 20vw
 }
 
 
-.submit__button {
+.submitButton {
   color: black;
   font-size: 14px;
   background-color: white;
   border-radius: 5px;
   padding: 10px;
-  margin-left: 30px;
+  margin-left: 20vw;
   padding-right: 30px;
   padding-left: 30px;
   cursor: pointer;
 }
 
-.options__button {
+.optionsButton {
   display: flex;
   cursor: pointer;
 }

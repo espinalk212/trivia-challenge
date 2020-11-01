@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Header from "./Header";
-import Welcome from './Welcome';
+import Welcome from "./Welcome";
 import Question from "./Question";
 import Result from "./Result";
 import Options from "./Options";
@@ -17,14 +17,15 @@ class App extends Component {
     this.state = {
       counter: 0,
       currentQuestionId: 1,
-      currentQuestion: " ",
+      currentQuestion: "",
       currentAnswerOptions: [],
       correctAnswer: "",
       answer: "",
-      // answersCount: {},
       result: 0,
       currentShuffledQuestions: [],
       triviaStarted: false,
+      gameOver: false,
+      displayCorrectAnswer: false,
     };
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -33,16 +34,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // const shuffledAnswerOptions = data.map((question) =>
-    //   this.shuffledArray(question.incorrect.concat(question.correct))
-    // );
-    /* data: [{question: , correct: , incorrect: }, {question: , correct: , incorrect: }]*/
     const shuffledQuestions = this.shuffledArray(data, 10);
 
     this.setState({
       currentQuestion: shuffledQuestions[0].question,
-      currentAnswerOptions: shuffledQuestions[0].incorrect.concat(
-        shuffledQuestions[0].correct
+      currentAnswerOptions: this.shuffledArray(
+        shuffledQuestions[0].incorrect.concat(shuffledQuestions[0].correct)
       ),
       correctAnswer: shuffledQuestions[0].correct,
       currentShuffledQuestions: shuffledQuestions,
@@ -62,20 +59,30 @@ class App extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    if (
+    if (this.state.currentQuestionId < 10 && this.state.answer === "") {
+      alert("Please Pick An Option");
+    } else if (
       this.state.currentQuestionId < 10 &&
       this.state.answer === this.state.correctAnswer
     ) {
       let newRes = this.state.result;
-      this.setState({ result: (newRes += 1) });
-      setTimeout(() => this.setNextQuestion(), 300);
+      this.setState({ result: (newRes += 1), displayCorrectAnswer: true });
+      setTimeout(() => this.setState({ displayCorrectAnswer: false }), 600);
+      setTimeout(() => this.setNextQuestion(), 600);
     } else if (
       this.state.currentQuestionId < 10 &&
       this.state.answer !== this.state.correctAnswer
     ) {
-      setTimeout(() => this.setNextQuestion(), 300);
+      this.setState({ displayCorrectAnswer: true });
+      setTimeout(() => this.setState({ displayCorrectAnswer: false }), 600);
+      setTimeout(() => this.setNextQuestion(), 600);
     } else {
-      setTimeout(() => console.log(`you scored ${this.state.result}`), 300);
+      this.setState({ displayCorrectAnswer: true });
+      setTimeout(() => this.setState({ displayCorrectAnswer: false }), 600);
+      setTimeout(
+        () => this.setState({ triviaStarted: false, gameOver: true }),
+        600
+      );
     }
   }
 
@@ -85,14 +92,13 @@ class App extends Component {
     this.setAnswer(e.currentTarget.value);
   }
 
-  startTrivia() {
-    this.setState({ triviaStarted: true })
-  }
-
   setAnswer(answer) {
     this.setState({
       answer: answer,
     });
+  }
+  startTrivia() {
+    this.setState({ triviaStarted: true });
   }
 
   setNextQuestion() {
@@ -103,9 +109,11 @@ class App extends Component {
       counter: counter,
       currentQuestionId: currentQuestionId,
       currentQuestion: this.state.currentShuffledQuestions[counter].question,
-      currentAnswerOptions: this.state.currentShuffledQuestions[
-        counter
-      ].incorrect.concat(this.state.currentShuffledQuestions[counter].correct),
+      currentAnswerOptions: this.shuffledArray(
+        this.state.currentShuffledQuestions[counter].incorrect.concat(
+          this.state.currentShuffledQuestions[counter].correct
+        )
+      ),
       answer: "",
     });
   }
@@ -119,13 +127,26 @@ class App extends Component {
             currentQuestionNumber={this.state.currentQuestionId}
             currentQuestion={this.state.currentQuestion}
             totalQuestions={10}
+            result={this.state.result}
           />
           <Options
+            displayCorrectAnswer={this.state.displayCorrectAnswer}
+            correctAnswer={this.state.correctAnswer}
             currentAnswerOptions={this.state.currentAnswerOptions}
             handleSubmit={this.handleSubmit}
             handleAnswerSelected={this.handleAnswerSelected}
             currentAnswer={this.state.answer}
           />
+          <Footer />
+        </div>
+      );
+    } else if (
+      this.state.triviaStarted === false &&
+      this.state.gameOver === true
+    ) {
+      return (
+        <div className="app">
+          <Header />
           <Result
             result={this.state.result}
             currentQuestionId={this.state.currentQuestionId}
@@ -135,15 +156,11 @@ class App extends Component {
       );
     } else {
       return (
-      <div className="app">
-        <Header />
-        <Welcome startTrivia={this.startTrivia} />
-        <Result
-          result={this.state.result}
-          currentQuestionId={this.state.currentQuestionId}
-        />
-        <Footer />
-      </div>
+        <div className="app">
+          <Header />
+          <Welcome startTrivia={this.startTrivia} />
+          <Footer />
+        </div>
       );
     }
   }

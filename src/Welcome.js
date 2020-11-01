@@ -1,5 +1,5 @@
 import React from "react";
-import './Welcome.css';
+import "./Welcome.css";
 
 export default function Welcome({ startTrivia }) {
   return (
@@ -7,10 +7,12 @@ export default function Welcome({ startTrivia }) {
       <div className="welcomeCard">
         <h3>Welcome to the Trivia Challenge</h3>
         <article>
-          The instructions are pretty clear: you have 10 questions, try to get
-          as many as you can correct! Have fun and best of luck!
-          <button className="submit__button" onClick={startTrivia}>Start</button >
+          The instructions are pretty easy: you have 10 questions, try to get as
+          many as you can correct! Have fun and best of luck!
         </article>
+        <button className="submitButton" onClick={startTrivia}>
+          Start
+        </button>
       </div>
     </div>
   );

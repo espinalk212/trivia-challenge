@@ -1,19 +1,20 @@
 import React from "react";
+import "./Result.css";
 
-function Result({ result, currentQuestionId }) {
-  if (currentQuestionId <= 10) {
-    return (
-      <div>
-        <h1>Your score: {result} </h1>
+function Result({ result }) {
+  return (
+    <div className="resultCard__container">
+      <div className="resultCard">
+        <h2>You scored {result} correct out of 10 questions!</h2>
+        <button
+          className="submitButton"
+          onClick={() => window.location.reload(false)}
+        >
+          Play Again!
+        </button>
       </div>
-    );
-  } else {
-    return (
-      <div>
-        You scored {result} out of 10 questions!
-      </div>
-    )
-  }
+    </div>
+  );
 }
 
 export default Result;
