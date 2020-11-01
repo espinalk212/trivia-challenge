@@ -3,7 +3,9 @@
 ### Background and Overview 
 This is a fun little trivia web app created with React and Material-UI icons, the data was shared by [Tandem](https://madeintandem.com/) for the Software Engineer Apprenticeship Coding Challenge.
 
-Wallpaper from [FreeVector.com](https://www.freevector.com/pastel-background-30546)
+[Wallpaper](https://www.freevector.com/pastel-background-30546)
+
+[Favicon](https://favicon.io/)
 
 
 
