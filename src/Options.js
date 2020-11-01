@@ -30,11 +30,11 @@ function Options({
       <form className="form">
         {label}
         {displayCorrectAnswer ? (
-          <p className="showAnswer">
+          <h4 className="showAnswer">
             {correctAnswer === currentAnswer
               ? `Yay! You got the correct answer: ${correctAnswer}`
               : `Oops! The correct answer: ${correctAnswer}`}
-          </p>
+          </h4>
         ) : (
           " "
         )}
